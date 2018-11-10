@@ -1,0 +1,45 @@
+
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+
+
+import java.io.File;
+import java.io.FileOutputStream;
+
+public class changeToExcel {
+
+    public  void  Excel(){
+
+
+        try {
+
+            HSSFWorkbook workbook = new HSSFWorkbook();//create object classes which act as an Excel Workbook
+            HSSFSheet sheet = workbook.createSheet("WIKI MALAYSIA");//classes which act as an Excel Worksheet
+
+            int rowLine = 0;//defines an Excel row
+
+            for(DataCollect dataCollection : ScraperData.ListAll() ){
+                Row row = sheet.createRow(rowLine++);
+
+                Cell cell = row.createCell(0);//defines an Excel cell addressed in reference to a row.
+                cell.setCellValue(dataCollection.getColum1());//to insert data from table
+
+                Cell cel2 = row.createCell(1);//defines an Excel cell addressed in reference to a row.
+                cel2.setCellValue(dataCollection.getColum2());//to insert data from table
+
+
+            }
+
+            FileOutputStream out = new FileOutputStream(new File("C:\\Users\\User\\Desktop\\WIKIMALAYSIA.xlsx"));//to save file in laptop
+            workbook.write(out);
+            workbook.close();
+            System.out.println("\n WIKIMALAYSIA.xlsx written successfully");
+
+        } catch (Exception e){
+            System.out.println("error");
+        }
+
+    }
+}
