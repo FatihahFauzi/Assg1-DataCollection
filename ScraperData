@@ -1,0 +1,57 @@
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+import javax.swing.text.Element;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ScraperData {
+
+    public static List<DataCollect> ListAll(){
+
+        try{
+            //Get Document object after parsing the html from given url.
+            final Document document = Jsoup.connect("https://ms.wikipedia.org/wiki/Malaysia").get();
+            Elements Classtable = ((org.jsoup.nodes.Document) document).getElementsByClass("wikitable");//Get title
+            Elements Data = Classtable.get(1).getElementsByClass("wikitable");
+            Elements colum1 = Data.select("th");//colum for ibu negara
+            Elements colum2 = Data.select("td");// colum for kuala lumpur
+
+
+
+
+            List<DataCollect> dataCollections = new ArrayList<DataCollect>();//array list
+
+            for (int i = 0; i<colum1.size(); i++)
+            {
+
+                dataCollections.add(new DataCollect ("" + colum1.get(i).text(), "" + colum2.get(i).text()));//defines an data cell addressed in reference to a row.
+
+
+            }//end for
+
+            System.out.println("DATA IN PROCESS...\n");
+            Thread.sleep(5000);
+
+            for(DataCollect dataCollection :dataCollections)
+            {
+                System.out.println(dataCollection.getColum1()+"     =      "  +dataCollection.getColum2());
+
+            }//end for dataCollection
+            return dataCollections ;
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+
+        }
+        System.out.println("Data successfully");
+        return null;
+
+
+    }
+}
+
