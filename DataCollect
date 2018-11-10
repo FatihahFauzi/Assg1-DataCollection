@@ -1,0 +1,33 @@
+
+public class DataCollect {
+
+    private  String colum1,colum2;
+
+    public DataCollect(String colum1,String colum2) {
+
+        this.colum1 = colum1;
+        this.colum2 = colum2;
+
+    }
+    public void setColum1(String colum1) //mutator method
+    {
+        this.colum1=colum1;
+    }
+    public void setColum2(String colum2)//mutator method
+
+    {
+        this.colum2=colum2;
+    }
+
+    public  String getColum1() // accessor method
+    {
+        return colum1;
+    }
+
+    public  String getColum2()// accessor method
+    {
+        return colum2;
+    }
+}
+
+
